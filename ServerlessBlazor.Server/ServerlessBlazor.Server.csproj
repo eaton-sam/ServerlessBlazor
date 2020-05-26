@@ -5,13 +5,18 @@
     <AWSProjectType>Lambda</AWSProjectType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AWSSDK.S3" Version="3.3.110.58" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
   </ItemGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\ServerlessBlazor.Client\ServerlessBlazor.Client.csproj" />
-    <ProjectReference Include="..\ServerlessBlazor.Shared\ServerlessBlazor.Shared.csproj" />
+    <ProjectReference Include="..\ServerlessBlazor.Client\ServerlessBlazor.Client.csproj" Watch="true" />
+    <ProjectReference Include="..\ServerlessBlazor.Shared\ServerlessBlazor.Shared.csproj" Watch="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Include="..\ServerlessBlazor.Client\**\*.razor" />
   </ItemGroup>
 </Project>

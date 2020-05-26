@@ -9,7 +9,7 @@
         "Handler": "ServerlessBlazor.Server::ServerlessBlazor.Server.LambdaEntryPoint::FunctionHandlerAsync",
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": null,
         "Policies": [

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ServerlessBlazor.Shared\ServerlessBlazor.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Watch Include="**\*.razor;**\*.cshtml" />
+  </ItemGroup>
+  
 </Project>

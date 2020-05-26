@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,9 +29,21 @@ namespace ServerlessBlazor.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddRazorPages();
 
-            // Add S3 to the ASP.NET Core dependency injection framework.
-            services.AddAWSService<Amazon.S3.IAmazonS3>();
+            // Might not be necessary behind cloudfront
+            services.AddResponseCompression();
+
+            // Add HttpClient for Blazor wasm prerendering
+            services.AddScoped<HttpClient>(s =>
+            {
+                var navigationManager = s.GetRequiredService<NavigationManager>();
+                return new HttpClient
+                {
+                    BaseAddress = new Uri(navigationManager.BaseUri)
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -38,6 +53,7 @@ namespace ServerlessBlazor.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
+                app.UseBrowserLink();
             }
             else
             {
@@ -48,6 +64,7 @@ namespace ServerlessBlazor.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
+            //app.UsePathBase("/Prod");
             app.UseRouting();
 
             app.UseAuthorization();
@@ -55,7 +72,7 @@ namespace ServerlessBlazor.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }
