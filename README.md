@@ -10,4 +10,4 @@ WebAssembly Project
 Back end for pre-rendering and Web API
 
 ## ServerlessBlazor.Shared
-Interfaces and entities used by both
+Interfaces and entities used by client and server
