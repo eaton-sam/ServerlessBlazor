@@ -1,3 +1,3 @@
-# ServerlessBlazor
-Blazor WebAssembly hosted on asp.net core AWS lambda with server side pre-rendering.
+# Serverless Blazor
+Blazor WebAssembly pre-rendered on asp.net core, hosted in AWS lambda
 All Blazor files are served by asp.net core
