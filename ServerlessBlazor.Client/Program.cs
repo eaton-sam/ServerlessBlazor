@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ServerlessBlazor.Shared;
+using ServerlessBlazor.Client.Services;
 
 namespace ServerlessBlazor.Client
 {
@@ -18,6 +20,7 @@ namespace ServerlessBlazor.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddTransient<IWeatherForecastService, HttpWeatherForecastService>();
 
             await builder.Build().RunAsync();
         }

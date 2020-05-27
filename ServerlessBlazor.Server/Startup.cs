@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ServerlessBlazor.Server.Services;
+using ServerlessBlazor.Shared;
 
 namespace ServerlessBlazor.Server
 {
@@ -44,6 +46,7 @@ namespace ServerlessBlazor.Server
                 };
             });
 
+            services.AddTransient<IWeatherForecastService, FileWeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -52,6 +55,7 @@ namespace ServerlessBlazor.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //These two do not work together
                 app.UseWebAssemblyDebugging();
                 app.UseBrowserLink();
             }
@@ -64,7 +68,6 @@ namespace ServerlessBlazor.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            //app.UsePathBase("/Prod");
             app.UseRouting();
 
             app.UseAuthorization();
